@@ -7,11 +7,18 @@ import { api } from '@/utils/api'
 import { Nav, Modal } from '@/components'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
-    const hello = api.example.hello.useQuery({ text: 'from tRPC' })
     const [showModal, setShowModal] = useState<boolean>(false)
+    const router = useRouter()
     // const { register, handleSubmit } = useForm()
+
+    const { mutate, isLoading } = api.itinerary.create.useMutation({
+        onSuccess: async (data) => {
+            await router.push(`i/${data.id}`)
+        },
+    })
 
     return (
         <>
@@ -28,7 +35,9 @@ const Home: NextPage = () => {
             >
                 {/* <label>Where will you be going?</label> */}
                 {/* <input defaultValue="test" {...register('destination')} /> */}
-                <button>Start planning your next adventure</button>
+                <button onClick={() => mutate()}>
+                    Start planning your next adventure
+                </button>
             </Modal>
             <main className="flex min-h-screen flex-col items-center justify-center">
                 <button onClick={() => setShowModal(true)}>Open Modal</button>
