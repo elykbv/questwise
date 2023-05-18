@@ -35,7 +35,7 @@ export const UserAvatar = ({ name }: Props) => {
             <div
                 onClick={() => setShowDropdown((prevState) => !prevState)}
                 ref={avatarRef}
-                className="m-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-teal-700 to-teal-500 text-white"
+                className="m-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-teal-700 to-teal-500 font-medium text-white"
             >
                 {name?.charAt(0).toUpperCase()}
             </div>

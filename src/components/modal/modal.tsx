@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from 'react'
+import { motion } from 'framer-motion'
 
 interface Props {
     title: string
@@ -15,7 +16,9 @@ export const Modal = ({
     return (
         <>
             {show && (
-                <div
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                     className="fixed inset-0 flex h-full w-full items-center justify-center overflow-y-auto bg-gray-600 bg-opacity-25"
                     onClick={() => setShow(false)}
                 >
@@ -28,7 +31,7 @@ export const Modal = ({
                         </div>
                         <div className="p-4">{children}</div>
                     </div>
-                </div>
+                </motion.div>
             )}
         </>
     )
