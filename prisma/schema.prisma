@@ -16,6 +16,12 @@ model Example {
     updatedAt DateTime @updatedAt
 }
 
+model Itinerary {
+    id              String  @id @default(cuid())
+    userId          String
+    user            User    @relation(fields: [userId], references: [id])
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -51,6 +57,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    itineraries   Itinerary[]
 }
 
 model VerificationToken {

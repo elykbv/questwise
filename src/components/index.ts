@@ -1,3 +1,6 @@
-import { Modal } from './modal/modal'
+import { Nav } from './Nav/Nav'
+import { Modal } from './Modal/Modal'
+import { Dropdown } from './Dropdown/Dropdown'
+import { UserAvatar } from './UserAvatar/UserAvatar'
 
-export { Modal }
+export { Nav, Modal, Dropdown, UserAvatar }
