@@ -1,9 +1,17 @@
+import type { PropsWithChildren } from 'react'
+
 interface Props {
+    title: string
     show: boolean
     setShow: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const Modal = ({ show, setShow }: Props) => {
+export const Modal = ({
+    title,
+    show,
+    setShow,
+    children,
+}: PropsWithChildren<Props>) => {
     return (
         <>
             {show && (
@@ -12,11 +20,13 @@ export const Modal = ({ show, setShow }: Props) => {
                     onClick={() => setShow(false)}
                 >
                     <div
-                        className="relative mx-auto rounded-md bg-white p-5"
+                        className="relative mx-auto w-8/12 rounded-md bg-white"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div>Title</div>
-                        <div>Content</div>
+                        <div className="w-full border-b-2 border-gray-100 p-4">
+                            {title}
+                        </div>
+                        <div className="p-4">{children}</div>
                     </div>
                 </div>
             )}
