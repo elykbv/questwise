@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, createRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Dropdown } from '../Dropdown/Dropdown'
 
 interface Props {
