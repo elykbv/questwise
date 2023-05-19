@@ -20,6 +20,22 @@ model Itinerary {
     id              String  @id @default(cuid())
     userId          String
     user            User    @relation(fields: [userId], references: [id])
+    days            Day[]
+}
+
+model Day {
+    id          String  @id @default(cuid())
+    itineraryId String
+    Itinerary   Itinerary   @relation(fields: [itineraryId], references: [id])
+    date        DateTime
+    activities  Activity[]
+}
+
+model Activity {
+    id          String  @id @default(cuid())
+    dayId       String
+    day         Day     @relation(fields: [dayId], references: [id])
+    text        String  @default("")
 }
 
 // Necessary for Next auth

@@ -15,7 +15,7 @@ export const Dropdown = ({ show, dropdownRef }: Props) => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     ref={dropdownRef}
-                    className="absolute right-4 mt-4 w-56 rounded-md bg-white"
+                    className="absolute right-4 mt-4 w-56 rounded-md border-2 border-slate-200 border-opacity-50 bg-slate-50"
                 >
                     <ul className="px-6">
                         <li>My Trips</li>
