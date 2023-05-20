@@ -14,7 +14,7 @@ const Home: NextPage = () => {
     const router = useRouter()
     // const { register, handleSubmit } = useForm()
 
-    const { mutate, isLoading } = api.itinerary.create.useMutation({
+    const { mutate, isLoading } = api.itineraries.create.useMutation({
         onSuccess: async (data) => {
             await router.push(`i/${data.id}`)
         },
