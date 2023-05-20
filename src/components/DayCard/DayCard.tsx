@@ -2,28 +2,30 @@ import { IconPencilPlus } from '@tabler/icons-react'
 import { Reorder } from 'framer-motion'
 import { useState } from 'react'
 import { ActivityCard } from './ActivityCard'
+import { api } from '@/utils/api'
 
-export const DayCard = () => {
-    const [activities, setActivities] = useState<
-        { text: string; id: number }[]
-    >([])
+interface Props {
+    id: string
+    date: Date
+}
 
-    const handleDelete = (index: number) => {
-        setActivities(activities.splice(index, 1))
-    }
+export const DayCard = ({ id, date }: Props) => {
+    const { data } = api.activities.getAllByDayId.useQuery({ dayId: id })
+    const ctx = api.useContext()
+    const { mutate: createActivityMutation } =
+        api.activities.create.useMutation({
+            onSuccess: () => ctx.activities.getAllByDayId.invalidate(),
+        })
+
+    console.log({ data })
 
     return (
         <div className="w-56 rounded-md bg-gray-300">
             <div className="flex justify-between px-4 pt-2">
-                <h3>May 4, 2023</h3>
+                <h3>{date.toDateString()}</h3>
                 <IconPencilPlus
                     className="cursor-pointer rounded-full transition duration-300 ease-in-out hover:scale-125 hover:text-slate-900"
-                    onClick={() =>
-                        setActivities((prevState) => [
-                            ...prevState,
-                            { text: '', id: Math.floor(Math.random() * 10000) },
-                        ])
-                    }
+                    onClick={() => createActivityMutation({ dayId: id })}
                 />
             </div>
             <div
@@ -35,21 +37,21 @@ export const DayCard = () => {
                 Subtitle
             </div>
             <div className="border-t border-gray-400 p-4">
-                <Reorder.Group
+                {/* <Reorder.Group
                     axis="y"
                     values={activities}
                     onReorder={setActivities}
-                >
-                    {activities.map((activity, index) => (
-                        <Reorder.Item key={activity.id} value={activity}>
-                            <ActivityCard
-                                text={activity.text}
-                                handleDelete={handleDelete}
-                                index={index}
-                            />
-                        </Reorder.Item>
-                    ))}
-                </Reorder.Group>
+                > */}
+                {data?.map((activity, index) => (
+                    <ActivityCard
+                        text={activity.text}
+                        key={activity.id}
+                        id={activity.id}
+                    />
+                ))}
+                {/* // <Reorder.Item key={activity.id} value={activity}> */}
+                {/* // </Reorder.Item> */}
+                {/* </Reorder.Group> */}
             </div>
         </div>
     )
