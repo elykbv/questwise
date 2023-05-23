@@ -21,6 +21,8 @@ model Itinerary {
     userId          String
     user            User    @relation(fields: [userId], references: [id])
     days            Day[]
+    destination     String
+    public          Boolean @default(false)
 }
 
 model Day {
@@ -28,6 +30,7 @@ model Day {
     itineraryId String
     Itinerary   Itinerary   @relation(fields: [itineraryId], references: [id])
     date        DateTime
+    subtitle    String
     activities  Activity[]
 }
 
